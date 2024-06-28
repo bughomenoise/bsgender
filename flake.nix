@@ -13,13 +13,12 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             go
-            air
           ];
           nativeBuildInputs = [
             # inputs.go.legacyPackages.${system}.go_1_22
           ];
           shellHook = ''
-            go mod download
+            go mod tidy
             go mod verify
           '';
         };
