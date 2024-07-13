@@ -11,8 +11,8 @@ import (
 
 func sum8(str string) byte {
 	var b byte
-	for c := range str {
-		b += byte(c)
+	for char := range str {
+		b += byte(char)
 	}
 	return b
 }
@@ -27,14 +27,14 @@ func eStringsToBytes(strings []string) []byte {
 
 type Seed struct {
 	wordList  []string
-	indexList []int
+	indexList []uint
 }
 
 func (s Seed) GetWordList() []string {
 	return s.wordList
 }
 
-func (s Seed) GetIndexList() []int {
+func (s Seed) GetIndexList() []uint {
 	return s.indexList
 }
 
@@ -50,12 +50,12 @@ func entropyToSeed(entropy []byte) (Seed, error) {
 	rx := regexp.MustCompile("\\s+")
 	seedWord := rx.Split(seedStr, -1)
 	// var iResult []int
-	wl := GetWordList()
-	var seedIndex []int
-	for _, v := range seedWord {
-		ix, ok := slices.BinarySearchFunc(wl, v, func(a, b string) int { return cmp.Compare(a, b) })
+	wordlist := GetWordList()
+	var seedIndex []uint
+	for _, word := range seedWord {
+		ix, ok := slices.BinarySearchFunc(wordlist, word, func(a, b string) int { return cmp.Compare(a, b) })
 		if ok {
-			seedIndex = append(seedIndex, ix)
+			seedIndex = append(seedIndex, uint(ix))
 		}
 	}
 

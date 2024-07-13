@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bughomenoise/bsgender/qrcode"
+	"github.com/bughomenoise/bsgender/output"
 	"github.com/bughomenoise/bsgender/seed"
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -193,7 +193,7 @@ func main() {
 		exitError(err)
 	}
 
-	qrcode.PrintSeedSignerQRCode(rSeed)
+	output.PrintSeedSignerQRCode(rSeed)
 	fmt.Println("######## SeedWord ########")
 	for i, v := range rSeed.GetWordList() {
 		fmt.Printf("(%d) %s\n", i+1, v)
