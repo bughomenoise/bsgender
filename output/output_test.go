@@ -34,7 +34,7 @@ func TestIndexToStr4c(t *testing.T) {
 
 		result, err := indexToStr4c(input)
 		if err != nil {
-			t.Errorf("%s: %s", fName, err.Error())
+			t.Errorf("%s: %s\n", fName, err.Error())
 		}
 		if result != expect {
 			t.Errorf("%s: input %d  expect %s, result %s\n", fName, input, expect, result)
@@ -85,12 +85,16 @@ func TestIndexListToString(t *testing.T) {
 			input:  []uint{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			expect: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
 		},
+		{
+			input:  []uint{2047, 2047, 2047, 2047, 2047, 2047, 2047, 2047, 2047, 2047, 2047, 2047},
+			expect: "204720472047204720472047204720472047204720472047",
+		},
 	}
 
 	for _, inputExpect := range inputExpects {
 		result, err := indexListToString(inputExpect.input)
 		if err != nil {
-			t.Errorf("%s: %s", fName, err.Error())
+			t.Errorf("%s: %s\n", fName, err.Error())
 		}
 		if inputExpect.expect != result {
 			t.Errorf("%s: expect %s | result %s\n", fName, inputExpect.expect, result)
@@ -98,9 +102,30 @@ func TestIndexListToString(t *testing.T) {
 	}
 
 	// unexpected case
-	inputUnexpected := []inputExpect{}
-	//TODO:
-	t.Errorf("TODO\n")
+	inputUnexpecteds := []inputExpect{
+		{
+			input: []uint{}, // empty
+		},
+		{
+			input: []uint{0, 0, 0, 0, 0, 0, 4048, 0, 0, 0, 0, 0}, // 1 over
+		},
+		{
+			input: []uint{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 11
+		},
+		{
+			input: []uint{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 23
+		},
+		{
+			input: []uint{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 25
+		},
+	}
+
+	for _, inputUnexpected := range inputUnexpecteds {
+		_, err := indexListToString(inputUnexpected.input)
+		if err == nil {
+			t.Errorf("%s: this input %v need return error but dont\n", fName, inputUnexpected.input)
+		}
+	}
 
 }
 

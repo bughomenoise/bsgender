@@ -46,7 +46,7 @@ func indexListToString(indexList []uint) (string, error) {
 	var wordlistString string
 
 	length := len(indexList)
-	if length != w12 && length != w24 {
+	if !(length == w12 || length == w24) {
 		return wordlistString, errors.New(fmt.Sprintf("indexListToString: wordlist length error -> get %d, expect %d or %d", length, w12, w24))
 	}
 
