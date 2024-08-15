@@ -1,4 +1,4 @@
-package output
+package stdout
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ func TestIndexToStr4c(t *testing.T) {
 	const fName = "TestIndexToStr4c"
 
 	// size over
-	const expectNotOver uint = 2047
+	const expectNotOver uint = WORD_LIST_LAST_INDEX
 	const unexpectedSize uint = expectNotOver + 1
 	_, overSizeErr := indexToStr4c(unexpectedSize)
 	if overSizeErr == nil {

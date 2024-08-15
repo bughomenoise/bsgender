@@ -15,6 +15,7 @@
           ];
           nativeBuildInputs = [ ];
           shellHook = ''
+            cd src
             go mod tidy
             go mod verify
           '';

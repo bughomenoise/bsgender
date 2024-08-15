@@ -1,4 +1,4 @@
-package output
+package stdout
 
 import (
 	"errors"
@@ -10,15 +10,13 @@ import (
 	"github.com/mdp/qrterminal/v3"
 )
 
-func WORD_LIST_LAST_INDEX() uint {
-	return uint(len(seed.GetWordList()) - 1)
-}
+const WORD_LIST_LAST_INDEX uint = 2047
 
 func indexToStr4c(index uint) (string, error) {
 	var str4c string
 
-	if index > WORD_LIST_LAST_INDEX() {
-		return str4c, errors.New(fmt.Sprintf("indexToStr4c: index range error -> get %d , expect 0 - %d", index, WORD_LIST_LAST_INDEX()))
+	if index > WORD_LIST_LAST_INDEX {
+		return str4c, errors.New(fmt.Sprintf("indexToStr4c: index range error -> get %d , expect 0 - %d", index, WORD_LIST_LAST_INDEX))
 	}
 
 	strIndex := strconv.Itoa(int(index))
@@ -65,7 +63,7 @@ func PrintSeedSignerQRCode(aSeed seed.Seed) {
 	const line = "######## QR for Seedsigner ########"
 	fmt.Println(line)
 
-	wordlistString, err := indexListToString(aSeed.GetIndexList())
+	wordlistString, err := indexListToString(aSeed.GetIndexes())
 	if err != nil {
 		fmt.Printf("can't print qrcode. Error: %s\n", err.Error())
 	}

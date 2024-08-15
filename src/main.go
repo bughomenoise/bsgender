@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bughomenoise/bsgender/output"
 	"github.com/bughomenoise/bsgender/seed"
+	"github.com/bughomenoise/bsgender/stdout"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -193,11 +193,10 @@ func main() {
 		exitError(err)
 	}
 
-	output.PrintSeedSignerQRCode(rSeed)
+	stdout.PrintSeedSignerQRCode(rSeed)
 	fmt.Println("######## SeedWord ########")
-	for i, v := range rSeed.GetWordList() {
+	for i, v := range rSeed.GetWords() {
 		fmt.Printf("(%d) %s\n", i+1, v)
 	}
 	fmt.Println("######## SeedWord ########")
-
 }

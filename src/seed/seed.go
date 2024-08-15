@@ -30,16 +30,12 @@ type Seed struct {
 	indexList []uint
 }
 
-func (s Seed) GetWordList() []string {
+func (s Seed) GetWords() []string {
 	return s.wordList
 }
 
-func (s Seed) GetIndexList() []uint {
+func (s Seed) GetIndexes() []uint {
 	return s.indexList
-}
-
-func GetWordList() []string {
-	return wordlists.English
 }
 
 func entropyToSeed(entropy []byte) (Seed, error) {
@@ -50,7 +46,7 @@ func entropyToSeed(entropy []byte) (Seed, error) {
 	rx := regexp.MustCompile("\\s+")
 	seedWord := rx.Split(seedStr, -1)
 	// var iResult []int
-	wordlist := GetWordList()
+	wordlist := wordlists.English
 	var seedIndex []uint
 	for _, word := range seedWord {
 		ix, ok := slices.BinarySearchFunc(wordlist, word, func(a, b string) int { return cmp.Compare(a, b) })
