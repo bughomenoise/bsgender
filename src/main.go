@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/bughomenoise/bsgender/seed"
-	"github.com/bughomenoise/bsgender/stdout"
+	"github.com/bughomenoise/bsgender/seedout"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -193,7 +193,7 @@ func main() {
 		exitError(err)
 	}
 
-	stdout.PrintSeedSignerQRCode(rSeed)
+	seedout.PrintSeedSignerQRCode(rSeed)
 	fmt.Println("######## SeedWord ########")
 	for i, v := range rSeed.GetWords() {
 		fmt.Printf("(%d) %s\n", i+1, v)
